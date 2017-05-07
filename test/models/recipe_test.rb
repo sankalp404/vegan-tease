@@ -5,7 +5,16 @@ class RecipeTest < ActiveSupport::TestCase
   #   assert true
   # end
   def setup
-    @recipe = Recipe.new(name:'Chicken',description:'Chicken masala curry')
+    @user = User.create(first_name: 'sankalp',
+                     last_name: 'sharma',
+                     username: 'sankalp404',
+                     email: 'sankalp404@gmail.com')
+    @recipe = @user.recipes.build(name: 'Chicken', description: 'Chicken masala curry' )
+  end
+
+  test 'recipe without a user should be invalid' do
+    @recipe.user_id = nil
+    assert_not @recipe.valid?
   end
 
   test 'recipe should be valid' do
@@ -17,22 +26,24 @@ class RecipeTest < ActiveSupport::TestCase
     assert_not @recipe.valid?
   end
 
+  test 'name should be less than 100 characters' do
+    @recipe.name = 'a' * 101
+    assert_not @recipe.valid?
+  end
+
   test 'description should be present' do
     @recipe.description = ''
     assert_not @recipe.valid?
   end
 
   test 'description should be more than 5 characters' do
-    @recipe.description = 'a'*3
+    @recipe.description = 'a' * 3
     assert_not @recipe.valid?
   end
 
   test 'description should be less than 500 characters' do
-    @recipe.description = 'a'*501
+    @recipe.description = 'a' * 501
     assert_not @recipe.valid?
   end
 
-  # has a chef_id
-
-  # max length for name
 end

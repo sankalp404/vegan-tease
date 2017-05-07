@@ -6,6 +6,7 @@ class User < ApplicationRecord
   validates :email, presence: true, length: { maximum: 64 },
                     uniqueness: { case_sensitive: false },
                     email_format: { message: "doesn't look like an email address" }
+  has_many :recipes
 end
 
 # Using this to validate email format
