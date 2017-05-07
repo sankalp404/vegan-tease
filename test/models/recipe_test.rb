@@ -4,8 +4,9 @@ class RecipeTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
+  # ! is called bang and it just makes sure that it hits the db
   def setup
-    @user = User.create(first_name: 'sankalp',
+    @user = User.create!(first_name: 'sankalp',
                      last_name: 'sharma',
                      username: 'sankalp404',
                      email: 'sankalp404@gmail.com')
